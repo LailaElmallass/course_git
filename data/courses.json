@@ -1,0 +1,14 @@
+{ "courses":[
+ {
+    "id": 1,
+    "title": "Course 1",
+    "details": "Details about Course 1",
+    "comments": ["Great course!", "Very helpful!"]
+  },
+  {
+    "id": 2,
+    "title": "Course 2",
+    "details": "Details about Course 2",
+    "comments": []
+  }
+]}

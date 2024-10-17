@@ -1,27 +1,50 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { addComment } from '../slices/courseSlice';
-import CommentForm from './CommentForm';
+import React from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-const CourseDetails = ({ course }) => {
-  const dispatch = useDispatch();
+const CourseDetails = () => {
+  const { id } = useParams();
+  const { courses } = useSelector((state) => state.courses);
 
-  const handleAddComment = (comment) => {
-    dispatch(addComment({ courseId: course.id, comment }));
-  };
+  console.log("Courses from Redux:", courses);
+
+  const course = courses.find((course) => course.id === Number(id));
 
   return (
-    <div className="course-details">
-      <h3>{course.title}</h3>
-      <img src={course.image} alt={course.title} />
-      <p>{course.details}</p>
-      <h4>Comments:</h4>
-      <ul>
-        {course.comments.map((comment, index) => (
-          <li key={index}>{comment}</li>
-        ))}
-      </ul>
-      <CommentForm onAddComment={handleAddComment} />
+    <div className="container my-4">
+      {course ? (
+        <div className="card">
+          <div className="card-header">
+            <h2>{course.title}</h2>
+          </div>
+          <div className="card-body">
+            <p className="card-text">{course.details}</p>
+            {course.image && (
+              <img
+                src={course.image}
+                alt={course.title}
+                className="img-fluid rounded"
+                style={{ maxHeight: "300px", objectFit: "cover" }}
+              />
+            )}
+          </div>
+
+          <div className="my-4 mx-3">
+            <h4>Comments</h4>
+            <ul className="list-group">
+              {course.comments.map((comment, index) => (
+                <li key={index} className="list-group-item">
+                  {comment}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ) : (
+        <div className="alert alert-warning" role="alert">
+          Course not found.
+        </div>
+      )}
     </div>
   );
 };
