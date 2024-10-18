@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -18,7 +18,7 @@ const CourseDetails = () => {
             <h2>{course.title}</h2>
           </div>
           <div className="card-body">
-            <p className="card-text">{course.details}</p>
+            <p className="card-text">{course.category}</p>
             {course.image && (
               <img
                 src={course.image}
@@ -39,7 +39,13 @@ const CourseDetails = () => {
               ))}
             </ul>
           </div>
+          <div className="form-floating">
+            <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+            <label htmlFor="floatingTextarea">Comments</label>
+          </div>
         </div>
+
+
       ) : (
         <div className="alert alert-warning" role="alert">
           Course not found.
